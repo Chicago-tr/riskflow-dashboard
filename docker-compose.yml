@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+  simulate:
+    build: .
+    command: python app/scripts/simulate_market.py
+    depends_on:
+      - redis
+    ports:
+      - "8765:8765"
+  ingest:
+    build: .
+    command: python app/ingest/websocket_client.py
+    depends_on:
+      - simulate
+      - redis
