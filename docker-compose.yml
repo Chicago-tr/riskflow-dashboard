@@ -15,7 +15,8 @@ services:
     build: .
     environment:
       - PYTHONPATH=/app
-    command: python -m  app.ingest.websocket_client.py
+      - REDIS_URL=redis://redis:6379
+    command: python -m  app.ingest.websocket_client
     depends_on:
       - simulate
       - redis
