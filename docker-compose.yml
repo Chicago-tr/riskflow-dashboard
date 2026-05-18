@@ -13,7 +13,9 @@ services:
       - "8765:8765"
   ingest:
     build: .
-    command: python app/ingest/websocket_client.py
+    environment:
+      - PYTHONPATH=/app
+    command: python -m  app.ingest.websocket_client.py
     depends_on:
       - simulate
       - redis
