@@ -23,7 +23,7 @@ A replay driven dashboard for monitoring futures exposure, PnL, alerts, and late
 
 ## Overview
 
-This project was built to demonstrate tools similar to those used in a trading/risk monitoring environment. The main app focuses on visibility, control, and clear decision support, whilst the notebook provides a smaller research sandbox for testing ideas and exploring feature behavior.
+A dashboard framework for tracking market, risk, and position metrics. The main app focuses on visibility, control, and clear decision support, whilst the notebook provides a smaller research sandbox for testing ideas and exploring feature behavior.
 
 ## Project Structure
 
