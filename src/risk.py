@@ -4,7 +4,6 @@ from dataclasses import dataclass, field
 import pandas as pd
 from .config import RiskLimits
 
-#script for tracking positions
 
 @dataclass
 class PositionBook:
@@ -22,9 +21,10 @@ class PositionBook:
             self.qty += signed
         else:
             close_qty = min(abs(self.qty), abs(signed))
-            pnl = close_qty * (px - self.avg_px) * (1 if self.qty > 0 else -1)
+            pnl = close_qty * (px - self.avg_px) * (1 if self.qty > 0 else -1) * 50.0
             self.realized_pnl += pnl
             self.qty += signed
+
             if self.qty == 0:
                 self.avg_px = 0.0
             elif self.qty * signed > 0:
@@ -35,6 +35,7 @@ class PositionBook:
     def mark_to_market(self, mid: float):
         unrealized = self.qty * (mid - self.avg_px) * 50.0
         return unrealized, self.realized_pnl
+
 
 class RiskEngine:
     def __init__(self, limits: RiskLimits):
