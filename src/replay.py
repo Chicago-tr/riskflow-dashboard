@@ -21,15 +21,24 @@ class MarketReplay:
     def generate(self) -> pd.DataFrame:
         n = self.cfg.n_events
         ts = pd.date_range("2026-01-01 09:30:00", periods=n, freq="s")
-        rets = self.rng.normal(0, 0.00015, n).cumsum()
-        mid = self.cfg.start_price * (1 + rets)
-        spread = np.clip(self.rng.normal(0.4, 0.15, n), 0.25, 1.5)
-        bid = mid - spread / 2
-        ask = mid + spread / 2
+        rets = self.rng.normal(0, 0.0004, n).cumsum()
+        mid_raw = self.cfg.start_price * (1 + rets)
+
+        tick = self.cfg.tick_size
+        mid = np.round(mid_raw / tick) * tick
+
+        spread_ticks = np.clip(self.rng.normal(2.0, 0.8, n), 1, 6)
+        spread = spread_ticks * tick
+
+        bid = np.round((mid - spread / 2) / tick) * tick
+        ask = np.round((mid + spread / 2) / tick) * tick
+
+        bid = np.minimum(bid, ask - tick)
+        ask = np.maximum(ask, bid + tick)
+
         bid_size = self.rng.integers(1, 40, n)
         ask_size = self.rng.integers(1, 40, n)
-        trade_side = self.rng.choice([-1, 1], size=n)
-        trade_px = np.where(trade_side > 0, ask, bid)
+        trade_px = mid.copy()                   #Execution price is at the mid for simplicity
         latency_ms = np.clip(self.rng.normal(60, 20, n), 5, 250)
 
         df = pd.DataFrame(
@@ -41,7 +50,6 @@ class MarketReplay:
                 "bid_size": bid_size,
                 "ask_size": ask_size,
                 "trade_px": trade_px,
-                "trade_side": trade_side,
                 "latency_ms": latency_ms,
             }
         )
