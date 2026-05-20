@@ -6,6 +6,11 @@ from .replay import MarketReplay
 from .risk import PositionBook, RiskEngine
 from .microstructure import add_microstructure_features
 
+# This script takes the synthetic market data, calculates microstructure features such as z-score, 
+# simulates a simple trading strategy based on the signal, and evaluates the risk metrics at 
+# each step. The final output is a DataFrame that combines all this information for analysis 
+# and visualization.
+
 def build_demo_frame(n_events: int = 1000):
     cfg = ReplayConfig(n_events=n_events)
     raw = MarketReplay(cfg).generate()

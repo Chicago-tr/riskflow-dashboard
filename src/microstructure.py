@@ -3,6 +3,10 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+# This module contains functions to calculate microstructure features from the raw market data.
+# Is used in pipeline.py to enrich the synthetic market data with features that can be used for 
+# trading signals and risk evaluation.
+
 def add_microstructure_features(df: pd.DataFrame, window: int = 50, entry_z: float = 1.5) -> pd.DataFrame:
     out = df.copy()
 
