@@ -1,6 +1,6 @@
 # Futures Risk Monitor
 
-A replay driven dashboard for monitoring futures exposure, PnL, alerts, and latency in a workflow similar to that of a trading desk; designed to simulate a trading support environment.
+A replay driven dashboard for monitoring futures exposure, PnL, alerts, and latency; modular design allows for data processing from a variety of sources.
 
 ![Dashboard demo](assets/demo.gif)
 
