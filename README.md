@@ -6,7 +6,7 @@ A replay driven dashboard for monitoring futures exposure, PnL, alerts, and late
 
 ## Highlights
 
-- Real time monitoring currently using replayed market data; modular architecture enables processing of live market feeds as well.
+- Real time monitoring currently using replayed market data; architecture enables processing of live market feeds as well.
 - Position, exposure, and PnL tracking.
 - Risk checks and alerting for: latency, spreads, pnl, net positions, gross notional.
 - Latency aware event handling.
